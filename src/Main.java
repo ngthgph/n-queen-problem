@@ -5,7 +5,7 @@ public class Main {
 
         Queen t = new Queen();
         t.init();
-        t.test(1);
+        t.test(0);
         System.out.println();
     }
 }
@@ -16,11 +16,11 @@ Output: display all combinations of N queen positions (column positions array wi
 
 conditions: rows, columns and diagonals = false
 
-base case: all N queens put to N rows (starting row == N) => print result, return
+base case: all N queens put to N rows (starting row > N) => return
 
 recursive case:
 test(N, i) (i: starting row; i = 1 => push 1)
-Repeat check column i from 1 to N
+Repeat check column j from 1 to N
     1. set (x[i])
 	2. If i satisfy conditions,
 	    a. set the corresponding rows, columns and diagonals
@@ -40,18 +40,18 @@ Output: display all combinations of N queen positions (column positions array wi
 
 conditions: rows, columns and diagonals = false
 
-base case: all N queens put to N rows (starting row == N) => print result, return
+base case: all N queens put to N rows (starting row == N) => return
 
 recursive case:
 test(N, i) (i: starting row; i = 0 => not push anything yet)
-Repeat check column i from 1 to N
-    1. Push 1 row (i++), set result (x[i])
-	2. If i satisfy conditions,
+1. Push 1 row (i++), set result (x[i])
+2. Repeat check column j from 1 to N
+    If i satisfy conditions,
 	    a. set the corresponding rows, columns and diagonals
 	    b. if i == N,
 	            display it
 	       else
-                recursively call test test(N, i)
+                recursively call test(N, i)
         c. reset the corresponding rows, columns and diagonals
-    3. Pop 1 row (i--)
+3. Pop 1 row (i--)
 */

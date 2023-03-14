@@ -29,6 +29,7 @@ class Queen {
     }
 
     //Hàm hiển thị phương án
+
     void result() {
         int i;
         System.out.println("Case " + ++count);
@@ -45,17 +46,21 @@ class Queen {
     }
 
     // Hàm thuật toán tìm nghiệm theo thuật toán quay lui
+
+    // FOR PSEUDOCODE 2
     void test(int i) {
         // base case 1: all N queens put to N rows (starting row == N) => print result, return
         if(i > n) {
             return;
         }
 
+        // Push 1 row (i++)
+        i++;
+
         // recursive case:
         for(int j = 1; j <= n; j++) {
 
-            // Put column i in result set (x[]) => set the corresponding rows, columns and diagonals
-            x[i] = j; // put a queen in position (j;i) -> (column, row)
+            x[i] = j; // set result (x[i])
 
             // Check if position satisfy conditions
             if(a[j] && b[i+j] && c[i-j+n-1]) {
@@ -67,10 +72,7 @@ class Queen {
                 if (i == n)
                     result(); // if i == N, display it
                 else {
-                    test(++i); // else recursively call test with the test(N, starting row + 1)
-
-                    // Remove column from result set
-                    i--;
+                    test(i); // else recursively call test with the test(N, starting row + 1)
                 }
 
                 // reset the corresponding rows, columns and diagonals
@@ -79,5 +81,45 @@ class Queen {
                 c[i - j + n - 1] = true;
             }
         }
+
+        // Pop 1 row (i--)
+        i--;
     }
+
+    // FOR PSEUDOCODE 1
+//    void test(int i) {
+//        // base case 1: all N queens put to N rows (starting row == N) => print result, return
+//        if(i > n) {
+//            return;
+//        }
+//
+//        // recursive case:
+//        for(int j = 1; j <= n; j++) {
+//
+//            // set (x[i])
+//            x[i] = j; // put a queen in position (j;i) -> (column, row)
+//
+//            // Check if position satisfy conditions
+//            if(a[j] && b[i+j] && c[i-j+n-1]) {
+//                // set the corresponding rows, columns and diagonals
+//                a[j] = false; // column j has a queen;
+//                b[i + j] = false; // diagonal right to left (small to large)
+//                c[i - j + n - 1] = false; // diagonal left to right
+//
+//                if (i == n)
+//                    result(); // if i == N, display it
+//                else {
+//                    test(++i); // else recursively call test with the test(N, starting row + 1)
+//
+//                    // Remove column from result set
+//                    i--;
+//                }
+//
+//                // reset the corresponding rows, columns and diagonals
+//                a[j] = true;
+//                b[i + j] = true;
+//                c[i - j + n - 1] = true;
+//            }
+//        }
+//    }
 }
