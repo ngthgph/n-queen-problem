@@ -10,22 +10,48 @@ public class Main {
     }
 }
 
-/* PSEUDOCODE:
+/* PSEUDOCODE 1:
 Input: N queen, N board
 Output: display all combinations of N queen positions (column positions array with index corresponding to row position)
 
 conditions: rows, columns and diagonals = false
 
-base case 1: all N queens put to N rows (starting row == N) => print result, return
-
-base case 2: no cell to put the next queen (check the conditions in rows, columns and diagonal => return
+base case: all N queens put to N rows (starting row == N) => print result, return
 
 recursive case:
-test(N, starting row)
-1. Repeat check column i from 1 to N
-	a. Put column i in result set (x[]) => set the corresponding rows, columns and diagonals
-	b. If i satisfy conditions,
-	    i. if i == N, display it
-	    ii. else
-            recursively call test with the test(N, starting row + 1)
-2. Remove column from result set, reset the corresponding rows, columns and diagonals */
+test(N, i) (i: starting row; i = 1 => push 1)
+Repeat check column i from 1 to N
+    1. set (x[i])
+	2. If i satisfy conditions,
+	    a. set the corresponding rows, columns and diagonals
+	    b. if i == N,
+	            display it
+	       else
+                i. recursively call test with the next row test(N, ++i)   (push)
+                ii. back a row (i--)                               (pop)
+        c. reset the corresponding rows, columns and diagonals
+*/
+
+//---------------------------------------------
+
+/* PSEUDOCODE 2:
+Input: N queen, N board
+Output: display all combinations of N queen positions (column positions array with index corresponding to row position)
+
+conditions: rows, columns and diagonals = false
+
+base case: all N queens put to N rows (starting row == N) => print result, return
+
+recursive case:
+test(N, i) (i: starting row; i = 0 => not push anything yet)
+Repeat check column i from 1 to N
+    1. Push 1 row (i++), set result (x[i])
+	2. If i satisfy conditions,
+	    a. set the corresponding rows, columns and diagonals
+	    b. if i == N,
+	            display it
+	       else
+                recursively call test test(N, i)
+        c. reset the corresponding rows, columns and diagonals
+    3. Pop 1 row (i--)
+*/

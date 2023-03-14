@@ -20,6 +20,7 @@ class Queen {
     void init() {
         int i;
         System.out.print(" n = ");
+
         n = in.nextInt();
         count = 0;
         for (i = 1; i <= n; i++) a[i] = true;
@@ -30,11 +31,53 @@ class Queen {
     //Hàm hiển thị phương án
     void result() {
         int i;
-        System.out.printf("\n%3d: ", ++count);
-        for (i = 1; i <= n; i++) System.out.printf("%4d", x[i]);
+        System.out.println("Case " + ++count);
+        for (i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (x[i] == j)
+                    System.out.print(" Q ");
+                else
+                    System.out.print(" * ");
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 
     // Hàm thuật toán tìm nghiệm theo thuật toán quay lui
     void test(int i) {
+        // base case 1: all N queens put to N rows (starting row == N) => print result, return
+        if(i > n) {
+            return;
+        }
+
+        // recursive case:
+        for(int j = 1; j <= n; j++) {
+
+            // Put column i in result set (x[]) => set the corresponding rows, columns and diagonals
+            x[i] = j; // put a queen in position (j;i) -> (column, row)
+
+            // Check if position satisfy conditions
+            if(a[j] && b[i+j] && c[i-j+n-1]) {
+                // set the corresponding rows, columns and diagonals
+                a[j] = false; // column j has a queen;
+                b[i + j] = false; // diagonal right to left (small to large)
+                c[i - j + n - 1] = false; // diagonal left to right
+
+                if (i == n)
+                    result(); // if i == N, display it
+                else {
+                    test(++i); // else recursively call test with the test(N, starting row + 1)
+
+                    // Remove column from result set
+                    i--;
+                }
+
+                // reset the corresponding rows, columns and diagonals
+                a[j] = true;
+                b[i + j] = true;
+                c[i - j + n - 1] = true;
+            }
+        }
     }
 }
